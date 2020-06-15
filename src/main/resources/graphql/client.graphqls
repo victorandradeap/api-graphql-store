@@ -1,0 +1,27 @@
+type Client {
+    id: ID,
+    name: String,
+    email: String
+}
+
+input CLientCreate {
+    name: String!,
+    email: String!
+}
+
+input ClientUpdate {
+    id: ID!,
+    name: String!,
+    email: String!
+}
+
+extend type Query {
+    findClientById(id: ID!): Client
+    findAllClients: [Client]
+}
+
+extend type Query {
+    createClient(client: CLientCreate!): Client!
+    updateClient(client: ClientUpdate!): Client!
+    deleteClient(id: ID!): Boolean!
+}
