@@ -20,7 +20,7 @@ extend type Query {
     findAllClients: [Client]
 }
 
-extend type Query {
+extend type Mutation {
     createClient(client: CLientCreate!): Client!
     updateClient(client: ClientUpdate!): Client!
     deleteClient(id: ID!): Boolean!

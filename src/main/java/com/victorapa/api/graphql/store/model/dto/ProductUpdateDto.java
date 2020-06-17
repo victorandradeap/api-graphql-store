@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ClientCreateDto {
+public class ProductUpdateDto {
+    private long id;
     private String name;
-    private String email;
+    private double price;
 }
