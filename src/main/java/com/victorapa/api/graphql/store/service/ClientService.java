@@ -1,9 +1,12 @@
 package com.victorapa.api.graphql.store.service;
 
+import com.victorapa.api.graphql.store.exception.BadRequestException;
+import com.victorapa.api.graphql.store.exception.EntityNotFound;
 import com.victorapa.api.graphql.store.model.dto.ClientCreateDto;
 import com.victorapa.api.graphql.store.model.dto.ClientUpdateDto;
 import com.victorapa.api.graphql.store.model.entity.Client;
 import com.victorapa.api.graphql.store.repository.ClientRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +21,7 @@ public class ClientService {
     }
 
     public Client findById(Long id) {
-        return clientRepository.findById(id).orElse(null);
+        return clientRepository.findById(id).orElseThrow(EntityNotFound::new);
     }
 
     public List<Client> findAll() {
@@ -36,10 +39,11 @@ public class ClientService {
     }
 
     public boolean delete(long id) {
-        if(clientRepository.existsById(id)) {
+        try {
             clientRepository.deleteById(id);
             return true;
+        } catch (EmptyResultDataAccessException e) {
+            throw new BadRequestException();
         }
-        return false;
     }
 }

@@ -1,9 +1,11 @@
 package com.victorapa.api.graphql.store.service;
 
+import com.victorapa.api.graphql.store.exception.BadRequestException;
 import com.victorapa.api.graphql.store.model.dto.ProductCreateDto;
 import com.victorapa.api.graphql.store.model.dto.ProductUpdateDto;
 import com.victorapa.api.graphql.store.model.entity.Product;
 import com.victorapa.api.graphql.store.repository.ProductRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,10 +38,11 @@ public class ProductService {
     }
 
     public boolean delete(long id) {
-        if(productRepository.existsById(id)) {
+        try {
             productRepository.deleteById(id);
             return true;
+        } catch (EmptyResultDataAccessException e) {
+            throw new BadRequestException();
         }
-        return false;
     }
 }
