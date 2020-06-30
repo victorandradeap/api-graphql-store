@@ -1,0 +1,30 @@
+type Purchase {
+    id: ID!,
+    amount: Int!,
+    status: String!,
+    date: Date!,
+    client: Client!,
+    product: Product!
+}
+
+type PurchasePageableResult {
+    data: [Purchase]!
+    page: Int!
+    size: Int!
+}
+
+input PurchaseCreate {
+    amount: Int!,
+    clientId: ID!,
+    productId: ID!
+}
+
+extend type Query {
+    findPurchaseById(id: ID!): Purchase
+    findAllPurchase(page: Int = 0, size: Int = 10): PurchasePageableResult!
+}
+
+extend type Mutation {
+    createPurchase(purchase: PurchaseCreate!): Purchase!
+    cancelPurchase(id: ID!): Boolean!
+}

@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: test
   application:
     name: api-graphql-store
   h2:
@@ -13,4 +15,3 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: true

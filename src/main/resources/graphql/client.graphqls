@@ -1,7 +1,8 @@
 type Client {
-    id: ID,
-    name: String,
-    email: String
+    id: ID!,
+    name: String!,
+    email: String!,
+    purchases: [Purchase]!
 }
 
 input CLientCreate {
